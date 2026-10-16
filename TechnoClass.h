@@ -199,6 +199,9 @@ public:
 	//ObjectClass
 	virtual bool Limbo() override JMP_THIS(0x6F6AC0);
 
+	virtual void Flash(int duration) override JMP_THIS(0x6F9DD0);
+	virtual bool Select() override JMP_THIS(0x6FBFA0);
+
 	//TechnoClass
 	virtual bool IsUnitFactory() const R0;
 	virtual bool IsCloakable() const R0;
@@ -328,8 +331,8 @@ public:
 	virtual void DrawPipScalePips(Point2D* pLocation, Point2D* pOriginalLocation, RectangleStruct* pBounds) const RX;
 	virtual void DrawVeterancyPips(Point2D* pLocation, RectangleStruct* pBounds) const RX;
 	virtual void DrawExtraInfo(Point2D const& location, Point2D const& originalLocation, RectangleStruct const& bounds) const RX;
-	virtual void Uncloak(bool bPlaySound) RX;
-	virtual void Cloak(bool bPlaySound) RX;
+	virtual void Uncloak(bool bPlaySound) JMP_THIS(0x7036C0);
+	virtual void Cloak(bool bPlaySound) JMP_THIS(0x703770);
 	virtual int GetFlashingIntensity(int currentIntensity) const R0;
 	virtual void UpdateRefinerySmokeSystems() RX;
 	virtual DWORD DisguiseAs(AbstractClass* pTarget) JMP_THIS(0x70E280);
@@ -474,6 +477,12 @@ public:
 
 	int __fastcall ClearPlanningTokens(EventClass* pEvent)
 	{ JMP_STD(0x6386E0); }
+
+	// Vanilla's "player-owned, alive and type-name-matching" check - the predicate the game's
+	// own type selection uses. Ares hooks the type comparison inside it (0x7327AA), so Ares'
+	// GroupAs is honoured here as well.
+	bool __fastcall IsPlayerAliveUnitOf(const char* pID) const
+	{ JMP_STD(0x732770); }
 
 	void SetTargetForPassengers(AbstractClass* pTarget)
 	{ JMP_THIS(0x710550); }
@@ -735,7 +744,7 @@ public:
 	DECLARE_PROPERTY(FacingClass, SecondaryFacing);
 	int              CurrentBurstIndex;
 	DECLARE_PROPERTY(CDTimerClass, TargetLaserTimer);
-	short            unknown_short_3C8;
+	unsigned short   ReportRandomSeed;
 	WORD             unknown_3CA;
 	bool             CountedAsOwned; // is this techno contained in OwningPlayer->Owned... counts?
 	bool             IsSinking;

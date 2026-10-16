@@ -59,7 +59,7 @@ protected:
 public:
 	Point2D unknown_point2d_11E4;
 	int unknown_size_11EC;
-	int unknown_size_11F0;
+	int RadarX;	// 11F0 (named by upstream; was unknown_size_11F0 in Mix)
 	int unknown_size_11F4;
 	int unknown_size_11F8;
 	DWORD unknown_11FC;
@@ -93,8 +93,8 @@ public:
 	bool IsAvailableNow;
 	bool unknown_bool_14D9;
 	bool unknown_bool_14DA;
-	RectangleStruct RadarScopeRect;
-	RectangleStruct RadarScopeRect2;
+	RectangleStruct RadarScopeRect;	// 14DC (named by Mix; upstream calls it RadarViewRect)
+	RectangleStruct RadarScopeRect2;	// 14EC
 	DWORD unknown_14FC;
 	SysTimerClass unknown_timer_1500;
 };
