@@ -5,6 +5,16 @@
 
 struct RadarTrackingStruct;
 
+enum class RadarStateType : int
+{
+	Inactive = 0,
+	Active = 1,
+	Deactivating = 2,
+	Activating = 3,
+	NextMovie = 4,
+	MovieDone = 5
+};
+
 class NOVTABLE RadarClass : public DisplayClass
 {
 public:
@@ -82,7 +92,7 @@ public:
 	DWORD unknown_1494;
 	DWORD unknown_1498;
 	RectangleStruct RadarRect;
-	DWORD unknown_14AC;
+	RadarStateType RadarState;
 	DWORD unknown_14B0;
 	DWORD unknown_14B4;
 	DWORD unknown_14B8;
@@ -93,8 +103,11 @@ public:
 	bool IsAvailableNow;
 	bool unknown_bool_14D9;
 	bool unknown_bool_14DA;
-	RectangleStruct RadarScopeRect;	// 14DC (named by Mix; upstream calls it RadarViewRect)
-	RectangleStruct RadarScopeRect2;	// 14EC
-	DWORD unknown_14FC;
-	SysTimerClass unknown_timer_1500;
+	RectangleStruct RadarViewRect; // 14DC
+	DWORD unknown_14EC;
+	DWORD unknown_14F0;
+	DWORD unknown_14F4;
+	DWORD unknown_14F8;
+	int RadarAnimFrame; // 0x14FC
+	SysTimerClass RadarAnimTimer; // 0x1500
 };
